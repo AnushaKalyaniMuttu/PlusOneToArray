@@ -1,0 +1,50 @@
+package org.example;
+
+import java.util.Arrays;
+
+public class ClassB {
+    public static void main(String[] args) {
+        int[] arr = {2, 9, 9};
+        Arrays.stream(plusOne(arr)).boxed().forEach(System.out::println);
+    }
+
+    private static Integer getNumberFromArray(int[] arr) {
+        StringBuilder sb = new StringBuilder();//space complexity O(n)
+
+        for (int num : arr) {
+            sb.append(num);
+        }
+        return Integer.parseInt(sb.toString()) + 1;//time complexity O(n)
+    }
+
+
+    private static int[] plusOne(int[] arr) {
+
+        if (arr[arr.length - 1] < 9) {
+            arr[arr.length - 1] = arr[arr.length - 1] + 1;
+        } else {
+            Integer number = getNumberFromArray(arr);
+            return assignNumbertoArray(number, arr);
+        }
+        return arr; //O(n) time complexity   , space complexity
+    }
+
+    private static int[] assignNumbertoArray(Integer number, int[] arr) {
+        int count = 1;
+
+        while (number > 0) {
+            int index = arr.length - count;
+            int num = number % 10;
+            assign(num, arr, index);
+            count++;
+            number = number / 10;
+        }
+        return arr; //space complexity O(1) , time complexity O(n)
+    }
+
+    private static void assign(int num, int[] arr, int index) {
+        arr[index] = num;
+    }
+
+
+}
